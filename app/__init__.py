@@ -29,4 +29,4 @@ def hello():
     
 
 if __name__ == '__main__':
-    app.run(debug=False, port =5555)
+    app.run()
