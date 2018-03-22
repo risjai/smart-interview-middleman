@@ -9,6 +9,9 @@ app = Flask(__name__)
 pickle_in = open("extra_trees.pickle", "rb")
 classifier = pickle.load(pickle_in)
 
+hire_pickle_in = open("extra_trees_score.pickle", "rb")
+hireClassifier = pickle.load(hire_pickle_in)
+
 #weights = {'Problem Solving': 80, 'Design': 80, 'CS Skills': 50, 'Test Enumeration': 40, 'Communication': 30}
 weights = [80,80,50,40,30]
 
@@ -35,7 +38,7 @@ def hello():
         score = calculateScore(data);
         print(score)
         prob = classifier.predict_proba(data.reshape(1, -1))[0][1]
-        return json.dumps({"status" : "SUCCESS" , "result": prob, "score": score})
+        return json.dumps({"status" : "SUCCESS" , "result": prob*100, "score": score})
     except Exception as e:
         print("Exception is ",e)
         return json.dumps({"status" : "FAILURE" , "result": str(e)})
@@ -45,8 +48,17 @@ def final_score():
     try:
         content = request.json
         print(content)
-        scoreArray = [];
-        decisionArray = [];
+        scoreArray = content['scoreArray']
+        #scoreArray = [1,2,3,4]
+        #decisionArray = [1,0,0,0]
+        decisionArray = content['decisionArray']
+        data = np.array([])
+        for i in range(0,4):
+            data = np.append(data,decisionArray[i]) 
+            data = np.append(data,scoreArray[i])
+        print(data)
+        prob = hireClassifier.predict_proba(data.reshape(1, -1))[0][1]
+        return json.dumps({"status" : "SUCCESS" , "result": prob*100})
     except Exception as e:
         print("Exception is ",e)
         return json.dumps({"status" : "FAILURE" , "result": str(e)})
