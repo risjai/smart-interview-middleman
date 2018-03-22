@@ -3,8 +3,10 @@ import pickle
 import pandas as pd
 import numpy as np
 import json
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 
 pickle_in = open("extra_trees.pickle", "rb")
 classifier = pickle.load(pickle_in)
