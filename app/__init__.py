@@ -35,9 +35,10 @@ def hello():
         content = request.json
         print(content)
         data = np.array([content['PROBLEM_SOLVING'], content['DESIGN'], content['CS_SKILLS'],
-        content['TEST_ENUMERATION'], content['COMMUNICATION'], 1000, 1000])
+        content['TEST_ENUMERATION'], content['COMMUNICATION']])
         data[data < 1] = -1
-        data[data > 9 and data < 500] = 9
+        data[data > 9] = 9
+        np.append(data, 1000);  np.append(data, 1000); 
         print(data)
         score = calculateScore(data);
         print(score)
