@@ -37,7 +37,7 @@ def hello():
         data = np.array([content['PROBLEM_SOLVING'], content['DESIGN'], content['CS_SKILLS'],
         content['TEST_ENUMERATION'], content['COMMUNICATION'], 1000, 1000])
         data[data < 1] = -1
-        data[data > 9] = 9
+        data[data > 9 and data < 500] = 9
         print(data)
         score = calculateScore(data);
         print(score)
