@@ -38,7 +38,7 @@ def hello():
         content['TEST_ENUMERATION'], content['COMMUNICATION']])
         data[data < 1] = -1
         data[data > 9] = 9
-        np.append(data, 1000);  np.append(data, 1000); 
+        data = np.append(data, 1000);  data = np.append(data, 1000); 
         print(data)
         score = calculateScore(data);
         print(score)
